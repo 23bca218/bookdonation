@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   template: `
     <div class="register-container d-flex justify-content-center align-items-center">
       <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="p-4 shadow rounded bg-light">

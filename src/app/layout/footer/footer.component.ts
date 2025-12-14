@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
   styles: [`
     .custom-footer {
       background-color: #333333;
-      color: #FFD700;
+      color: #ffff;
     }
   `]
 })

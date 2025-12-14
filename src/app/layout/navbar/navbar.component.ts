@@ -19,7 +19,7 @@ import { RouterLink } from '@angular/router';
   `,
   styles: [`
     .custom-header {
-      background-color: #1E90FF; /* Navbar color */
+      background-color: black; /* Navbar color */
       color: white;
     }
     .custom-header .nav-link {
