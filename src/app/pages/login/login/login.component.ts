@@ -33,10 +33,7 @@ import { FormsModule } from '@angular/forms';
           />
 
           <div class="options">
-            <label>
-              <input type="checkbox" [(ngModel)]="remember" name="remember" />
-              Remember Me
-            </label>
+           
           </div>
 
           <button class="login-btn" type="submit">
@@ -47,10 +44,7 @@ import { FormsModule } from '@angular/forms';
             Continue with Google
           </button>
 
-          <p class="register-text">
-            Don’t have an account?
-            <a href="#">Register</a>
-          </p>
+         
 
         </form>
       </div>

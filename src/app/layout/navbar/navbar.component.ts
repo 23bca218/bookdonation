@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
          <a class="nav-link" routerLink="/register">register</a>
           <a class="nav-link" routerLink="/about">About</a>
           <a class="nav-link" routerLink="/contact">Contact</a>
-          
+          <a class="nav-link" routerLink="/">Home</a>
           <a class="nav-link" routerLink="/login">Login</a>
         </div>
       </div>
