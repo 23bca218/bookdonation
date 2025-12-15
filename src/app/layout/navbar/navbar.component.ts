@@ -9,26 +9,29 @@ import { RouterLink } from '@angular/router';
     <nav class="navbar navbar-expand-lg custom-header">
       <div class="container">
         <div class="navbar-nav mx-auto">
-          <a class="nav-link" routerLink="/login">Login</a>
-          <a class="nav-link" routerLink="/register">Register</a>
+         <a class="nav-link" routerLink="/register">register</a>
           <a class="nav-link" routerLink="/about">About</a>
           <a class="nav-link" routerLink="/contact">Contact</a>
+          
+          <a class="nav-link" routerLink="/login">Login</a>
         </div>
       </div>
     </nav>
   `,
   styles: [`
     .custom-header {
-      background-color: black; /* Navbar color */
-      color: white;
+      background: linear-gradient(to right, #4a6fb3, #1c2f4f);
     }
+
     .custom-header .nav-link {
       color: white;
-      margin: 0 10px;
+      margin: 0 14px;
       font-weight: 500;
+      font-size: 14px;
     }
+
     .custom-header .nav-link:hover {
-      color: #FFD700;
+      color: #e6efff;
     }
   `]
 })

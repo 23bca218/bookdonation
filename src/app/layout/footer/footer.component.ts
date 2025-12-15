@@ -10,8 +10,13 @@ import { Component } from '@angular/core';
   `,
   styles: [`
     .custom-footer {
-      background-color: #333333;
-      color: #ffff;
+      background: linear-gradient(to right, #4b6cb7, #182848);
+      color: #ffffff;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
     }
   `]
 })
