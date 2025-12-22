@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,20 +11,29 @@ import { FormsModule } from '@angular/forms';
     <div class="page">
       <div class="card">
         <div class="header">
-         <h2 class="title">
-          📘 Book Donation 
-        </h2>
-          <h2>Register</h2>
+          <h2 class="title">📘 Book Donation</h2>
+          <h3>Register</h3>
         </div>
 
         <form (ngSubmit)="onSubmit()">
-          <input type="text" placeholder="Full Name" [(ngModel)]="name" name="name" />
-          <input type="text" placeholder="Username" [(ngModel)]="username" name="username" />
-          <input type="email" placeholder="Email" [(ngModel)]="email" name="email" />
-          <input type="text" placeholder="Phone Number" [(ngModel)]="phone" name="phone" />
-          <input type="text" placeholder="Address" [(ngModel)]="address" name="address" />
-          <input type="password" placeholder="Password" [(ngModel)]="password" name="password" />
-          <input type="password" placeholder="Confirm Password" [(ngModel)]="cpassword" name="cpassword" />
+          <input type="text" placeholder="Full Name" [(ngModel)]="name" name="name" required />
+          <input type="text" placeholder="Username" [(ngModel)]="username" name="username" required />
+          <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required />
+          <input type="text" placeholder="Phone Number" [(ngModel)]="phone" name="phone" required />
+          <input type="text" placeholder="Address" [(ngModel)]="address" name="address" required />
+          <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required />
+          <input type="password" placeholder="Confirm Password" [(ngModel)]="cpassword" name="cpassword" required />
+        <div class="select-group">
+  <label>Select Role</label>
+
+  <select [(ngModel)]="role" name="role" class="role-select">
+    <option value="" disabled selected>Choose your role</option>
+    <option value="donor">Donor</option>
+    <option value="customer">Customer</option>
+    <option value="admin">Admin</option>
+  </select>
+</div>
+
 
           <button type="submit">Register</button>
         </form>
@@ -31,6 +41,40 @@ import { FormsModule } from '@angular/forms';
     </div>
   `,
   styles: [`
+    .select-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.select-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.role-select {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
+  font-size: 15px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* hover */
+.role-select:hover {
+  border-color: #6c63ff;
+}
+
+/* focus */
+.role-select:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+}
+
     .page {
       height: 100vh;
       background: #f4f6fb;
@@ -52,20 +96,8 @@ import { FormsModule } from '@angular/forms';
       margin-bottom: 18px;
     }
 
-    .icons {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .icons span {
-      font-size: 30px;
-      color: #4a73e6;
-    }
-
-    .header h2 {
-      margin: 6px 0 0;
+    .title {
+      margin-bottom: 5px;
       font-size: 22px;
       font-weight: 700;
       color: #243b6b;
@@ -80,10 +112,6 @@ import { FormsModule } from '@angular/forms';
       border: 2px solid #7bbcff;
       font-size: 14px;
       outline: none;
-    }
-
-    form input::placeholder {
-      color: #6c8fb3;
     }
 
     form input:focus {
@@ -103,13 +131,10 @@ import { FormsModule } from '@angular/forms';
       cursor: pointer;
       box-shadow: 0 8px 18px rgba(63,109,224,0.45);
     }
-
-    button:hover {
-      opacity: 0.95;
-    }
   `]
 })
 export class RegisterComponent {
+
   name = '';
   username = '';
   email = '';
@@ -117,8 +142,36 @@ export class RegisterComponent {
   address = '';
   password = '';
   cpassword = '';
+  role ='';
+
+  constructor(private router: Router) {}
 
   onSubmit() {
-    alert('Registered Successfully');
+  if (this.password !== this.cpassword) {
+    alert('Passwords do not match');
+    return;
   }
+
+  const userData = {
+    name: this.name,
+    username: this.username,
+    email: this.email,
+    phone: this.phone,
+    address: this.address,
+    password: this.password,
+    role: this.role
+  };
+
+  fetch('http://localhost:5000/api/users/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userData)
+  })
+  .then(res => res.json())
+  .then(() => {
+    alert('User stored in MongoDB');
+    this.router.navigate(['/login']);
+  });
+}
+
 }

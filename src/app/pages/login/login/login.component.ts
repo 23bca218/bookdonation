@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -32,10 +33,6 @@ import { FormsModule } from '@angular/forms';
             required
           />
 
-          <div class="options">
-           
-          </div>
-
           <button class="login-btn" type="submit">
             Login
           </button>
@@ -43,8 +40,6 @@ import { FormsModule } from '@angular/forms';
           <button type="button" class="google-btn">
             Continue with Google
           </button>
-
-         
 
         </form>
       </div>
@@ -84,18 +79,6 @@ import { FormsModule } from '@angular/forms';
       background: white;
     }
 
-    input::placeholder {
-      color: #7a9cc6;
-    }
-
-    .options {
-      display: flex;
-      justify-content: flex-end;
-      font-size: 14px;
-      margin-bottom: 15px;
-      color: #1e3a5f;
-    }
-
     .login-btn {
       width: 100%;
       padding: 12px;
@@ -119,18 +102,6 @@ import { FormsModule } from '@angular/forms';
       font-size: 15px;
       font-weight: bold;
       cursor: pointer;
-      margin-bottom: 15px;
-    }
-
-    .register-text {
-      font-size: 14px;
-      color: #333;
-    }
-
-    .register-text a {
-      color: #3b9ae1;
-      text-decoration: none;
-      font-weight: bold;
     }
   `]
 })
@@ -138,13 +109,47 @@ export class LoginComponent {
 
   email = '';
   password = '';
-  remember = false;
 
-  onSubmit() {
-    if (!this.email || !this.password) {
-      alert("Please fill all fields");
+  constructor(private router: Router) {}
+
+ onSubmit() {
+  fetch('http://localhost:5000/api/users/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: this.email,
+      password: this.password
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (!data.success) {
+      alert(data.message);
       return;
     }
-    alert("Login Successful");
-  }
+
+    // ✅ SAVE ROLE (optional but useful)
+    localStorage.setItem('role', data.user.role);
+
+    alert('Login successful');
+
+    // ✅ ROLE BASED REDIRECT
+    if (data.user.role === 'admin') {
+      this.router.navigate(['/user-list']);
+    } 
+    else if (data.user.role === 'donor') {
+      this.router.navigate(['/donate-book']);
+    } 
+    else {
+      this.router.navigate(['/view-books']);
+    }
+  })
+  .catch(() => {
+    alert('Server error');
+  });
+}
+
+
+
+
 }

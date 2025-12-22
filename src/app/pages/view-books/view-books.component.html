@@ -1,0 +1,51 @@
+<div class="books-container">
+
+  <!-- SEARCH + FILTER -->
+  <div class="search-filter">
+    <input type="text" placeholder="Search books..." [(ngModel)]="searchText" />
+    <select [(ngModel)]="selectedCondition">
+      <option value="All">All</option>
+      <option value="New">New</option>
+      <option value="Used">Used</option>
+      <option value="Old">Old</option>
+    </select>
+  </div>
+
+  <!-- BOOK GRID -->
+  <div class="books-grid">
+    <div class="book-card" *ngFor="let book of filteredBooks; let i = index">
+
+      <!-- Book of the Month Badge -->
+      <div class="book-of-month-badge" *ngIf="i === bookOfTheMonthIndex">
+        🌟 Book of the Month 🌟
+      </div>
+
+      <div class="condition-badge">{{ book.condition }}</div>
+      <img [src]="book.image" [alt]="book.title" class="book-image" (click)="openBookDetails(i)" />
+      <h3>{{ book.title }}</h3>
+      <p>{{ book.author }}</p>
+      <button class="add-cart-btn" (click)="addToCart(book)">Add to Cart 🛒</button>
+    </div>
+  </div>
+
+  <!-- BOOK DETAILS MODAL -->
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ selectedBook?.title }}</h2>
+      <p><strong>Author:</strong> {{ selectedBook?.author }}</p>
+      <p><strong>Condition:</strong> {{ selectedBook?.condition }}</p>
+      <p>{{ selectedBook?.description }}</p>
+
+      <h4>Testimonials:</h4>
+      <ul>
+        <li *ngFor="let t of selectedBook?.testimonials">{{ t }}</li>
+      </ul>
+
+      <div class="modal-buttons">
+        <button (click)="prevBook()" [disabled]="selectedBookIndex === 0">Previous</button>
+        <button (click)="nextBook()" [disabled]="selectedBookIndex === filteredBooks.length - 1">Next</button>
+      </div>
+    </div>
+  </div>
+</div>

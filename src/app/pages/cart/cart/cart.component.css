@@ -1,0 +1,13 @@
+.cart-summary {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.clear-btn {
+  background: #e74c3c;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}

@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink],
   template: `
-    <!-- HERO -->
+    <!-- HERO SECTION -->
     <section class="hero">
       <h1>📚 Book Donation Platform</h1>
       <p>
@@ -14,8 +13,13 @@ import { RouterLink } from '@angular/router';
       </p>
 
       <div class="buttons">
-        <a routerLink="/donate" class="btn donate">📘 Donate a Book</a>
-        <a routerLink="/request" class="btn request">📗 Request a Book</a>
+        <button class="btn donate" (click)="goDonate()">
+          📘 Donate a Book
+        </button>
+
+        <button class="btn request" (click)="goRequest()">
+          📗 Request a Book
+        </button>
       </div>
     </section>
 
@@ -56,19 +60,26 @@ import { RouterLink } from '@angular/router';
       display: flex;
       justify-content: center;
       gap: 15px;
+      flex-wrap: wrap;
     }
 
     .btn {
       padding: 10px 22px;
       border-radius: 20px;
-      text-decoration: none;
+      border: none;
+      cursor: pointer;
       color: white;
       font-weight: bold;
       font-size: 14px;
     }
 
-    .donate { background: #2ecc71; }
-    .request { background: #e67e22; }
+    .donate {
+      background: #2ecc71;
+    }
+
+    .request {
+      background: #e67e22;
+    }
 
     .why {
       padding: 40px 20px;
@@ -80,15 +91,53 @@ import { RouterLink } from '@angular/router';
       justify-content: center;
       gap: 20px;
       flex-wrap: wrap;
+      margin-top: 20px;
     }
 
     .card {
       width: 230px;
-      background: #fff;
+      background: #ffffff;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     }
   `]
 })
-export class HomeComponent {}
+export class HomeComponent {
+
+  constructor(private router: Router) {}
+
+  // ✅ DONATE BUTTON (ROLE BASED)
+  goDonate() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const role = localStorage.getItem('role');
+
+    if (!isLoggedIn) {
+      this.router.navigate(['/register']);
+      return;
+    }
+
+    if (role === 'donor') {
+      this.router.navigate(['/view-books']);
+    } else {
+      this.router.navigate(['/donate-book']);
+    }
+  }
+
+  // ✅ REQUEST BUTTON (ROLE BASED)
+  goRequest() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const role = localStorage.getItem('role');
+
+    if (!isLoggedIn) {
+      this.router.navigate(['/register']);
+      return;
+    }
+
+    if (role === 'donor') {
+      this.router.navigate(['/view-books']);
+    } else {
+      this.router.navigate(['/donate-book']);
+    }
+  }
+}

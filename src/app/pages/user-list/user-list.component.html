@@ -1,0 +1,21 @@
+<p *ngIf="loading">Loading users...</p>
+
+<table border="1" width="100%" *ngIf="!loading && users.length > 0">
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Contact</th>
+  </tr>
+
+  <tr *ngFor="let user of users; let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>{{ user.name }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.contact }}</td>
+  </tr>
+</table>
+
+<p *ngIf="!loading && users.length === 0">
+  No users found
+</p>

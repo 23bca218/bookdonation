@@ -1,0 +1,51 @@
+<div class="donate-page">
+  <div class="donate-card">
+
+    <h2>📚 Donate a Book</h2>
+    <p class="subtitle">Share knowledge. Make a difference.</p>
+
+    <form (ngSubmit)="donateBook()">
+
+      <div class="form-group">
+        <label>Book Title</label>
+        <input
+          type="text"
+          [(ngModel)]="book.title"
+          name="title"
+          placeholder="Enter book title"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Author</label>
+        <input
+          type="text"
+          [(ngModel)]="book.author"
+          name="author"
+          placeholder="Enter author name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Condition</label>
+        <select [(ngModel)]="book.condition" name="condition" required>
+          <option value="">Select condition</option>
+          <option value="New">New</option>
+          <option value="Used">Used</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Book Image</label>
+        <input type="file" (change)="onFileSelect($event)" />
+      </div>
+
+      <button type="submit" class="donate-btn">
+        Donate Book ❤️
+      </button>
+
+    </form>
+  </div>
+</div>
