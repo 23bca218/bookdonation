@@ -1,0 +1,40 @@
+.title {
+  text-align: center;
+  margin: 20px 0;
+  color: #2c3e50;
+}
+
+.book-table {
+  width: 95%;
+  margin: auto;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.book-table th {
+  background-color: #4e73df;
+  color: white;
+  padding: 12px;
+  text-align: center;
+}
+
+.book-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.book-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.book-table tr:hover {
+  background-color: #eef3ff;
+}
+
+.book-img {
+  width: 50px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}

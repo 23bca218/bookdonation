@@ -9,6 +9,7 @@ import { ContactComponent } from './pages/contact/contact/contact.component';
 import { ViewBooksComponent } from './pages/view-books/view-books.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 
+
 export const routes: Routes = [
   {
     path: '',
@@ -25,6 +26,13 @@ export const routes: Routes = [
           import('./pages/donate-book/donate-book/donate-book.component')
             .then(m => m.DonateBookComponent)
       },
+      {
+  path: 'book-donate-view',
+  loadComponent: () =>
+    import('./pages/book-donate-view/book-donate-view.component')
+      .then(m => m.BookDonateViewComponent)
+},
+
 
       { path: 'about', component: AboutComponent },
       { path: 'contact', component: ContactComponent },

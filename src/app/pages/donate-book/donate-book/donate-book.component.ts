@@ -13,59 +13,64 @@ import { FormsModule } from '@angular/forms';
         <h2>📚 Donate a Book</h2>
         <p class="subtitle">Share knowledge, spread happiness</p>
 
-        <form (ngSubmit)="donateBook()">
+        <form (ngSubmit)="donateBook()" #f="ngForm">
 
           <div class="group">
             <label>Book Title</label>
-            <input type="text" required />
+            <input type="text" name="title" [(ngModel)]="book.title" required />
           </div>
 
           <div class="group">
             <label>Author</label>
-            <input type="text" required />
+            <input type="text" name="author" [(ngModel)]="book.author" required />
           </div>
 
           <div class="group">
-          
+            <label>Description</label>
+            <textarea name="description"
+                      [(ngModel)]="book.description"
+                      placeholder="Brief description"></textarea>
           </div>
 
           <div class="group">
-            <label>Book Condition</label>
-            <select required>
-              <option value="">Select condition</option>
-              <option>New</option>
-              <option>Used - Good</option>
-              <option>Used - Average</option>
+            <label>Category</label>
+            <select name="category" [(ngModel)]="book.category" required>
+              <option value="">Select category</option>
+              <option>Programming</option>
+              <option>Fiction</option>
+              <option>Self Help</option>
+              <option>Education</option>
+              <option>Other</option>
             </select>
           </div>
 
           <div class="group">
-         
+            <label>Condition</label>
+            <select name="condition" [(ngModel)]="book.condition" required>
+              <option value="">Select condition</option>
+              <option>New</option>
+              <option>Used</option>
+            </select>
           </div>
 
-         
-
           <div class="group">
-            <label>Contact Number</label>
-            <input type="tel" placeholder="10-digit mobile number" required />
+            <label>Price (₹)</label>
+            <input type="number" name="price" [(ngModel)]="book.price" />
           </div>
 
           <div class="group">
             <label>Book Image (optional)</label>
-            <input type="file" />
+            <input type="text"
+                   name="photo"
+                   [(ngModel)]="book.photo"
+                   placeholder="image filename or URL" />
           </div>
 
-          <button class="btn">Donate Book ❤️</button>
+          <button class="btn" [disabled]="f.invalid">
+            Donate Book ❤️
+          </button>
         </form>
-      </div>
 
-      <!-- 🎆 CONFETTI -->
-      <div class="confetti" *ngIf="showConfetti">
-        <span *ngFor="let c of confetti; let i = index"
-              [style.left.%]="(i * 7) % 100"
-              [style.animationDuration.s]="1.8 + (i % 4) * 0.4">
-          {{ emojis[i % emojis.length] }}
-        </span>
       </div>
     </div>
   `,
@@ -76,17 +81,14 @@ import { FormsModule } from '@angular/forms';
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
-      overflow: hidden;
     }
 
     .card {
       background: #fff;
       padding: 30px;
       border-radius: 18px;
-      width: 380px;
+      width: 400px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      z-index: 2;
     }
 
     .subtitle {
@@ -110,7 +112,6 @@ import { FormsModule } from '@angular/forms';
       padding: 10px;
       border-radius: 8px;
       border: 1.5px solid #ccc;
-      outline: none;
       font-size: 14px;
     }
 
@@ -130,41 +131,43 @@ import { FormsModule } from '@angular/forms';
       cursor: pointer;
       margin-top: 10px;
     }
-
-    /* 🎆 CONFETTI */
-    .confetti {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .confetti span {
-      position: absolute;
-      top: -10px;
-      font-size: 26px;
-      animation: drop linear infinite;
-    }
-
-    @keyframes drop {
-      from { transform: translateY(0) rotate(0deg); opacity: 1; }
-      to   { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-    }
   `]
 })
 export class DonateBookComponent {
 
-  showConfetti = false;
-
-  emojis = ['🎉', '🎊', '✨', '💥', '🎈'];
-  confetti = Array(30);
+  // ✅ MATCHES MongoDB SCHEMA
+  book = {
+    title: '',
+    author: '',
+    description: '',
+    price: null as number | null,
+    category: '',
+    condition: '',
+    photo: ''
+  };
 
   donateBook() {
-    this.showConfetti = true;
-
-    setTimeout(() => {
-      this.showConfetti = false;
-      alert('Thank you for donating a book 🎉');
-    }, 2000);
+    fetch('http://localhost:5000/books', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(this.book)
+    })
+    .then(res => res.json())
+    .then(() => {
+      alert('✅ Book donated successfully!');
+      this.book = {
+        title: '',
+        author: '',
+        description: '',
+        price: null,
+        category: '',
+        condition: '',
+        photo: ''
+      };
+    })
+    .catch(err => {
+      console.error(err);
+      alert('❌ Error donating book');
+    });
   }
 }

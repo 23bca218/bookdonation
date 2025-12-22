@@ -18,6 +18,7 @@ import { CartService } from '../../services/cart.service';
        <a class="nav-link" routerLink="/register" routerLinkActive="active-link">register</a>
           <a class="nav-link" routerLink="/login" routerLinkActive="active-link">login</a>
            <a class="nav-link" routerLink="/user-list" routerLinkActive="active-link">user-list</a>
+           <a class="nav-link" routerLink="/book-donate-view" routerLinkActive="active-link">book-donate-view</a>
       
       
         </div>
