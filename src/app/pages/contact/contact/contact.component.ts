@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -7,24 +7,26 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="page">
-      <div class="contact-container">
+    <div class="contact-page">
+
+      <div class="contact-wrapper">
 
         <!-- LEFT SIDE -->
-        <div class="contact-info">
-          <h2>📞 Let’s Connect</h2>
-          <p class="info-sub">We are happy to help you 🤝</p>
+        <div class="contact-info fade-left">
+          <h2>Let’s Connect</h2>
+          <p class="tagline">We’d love to hear from you</p>
 
           <div class="info-card">
             <span>📧</span>
             <div>
               <strong>Email</strong>
-              <p>support&#64;bookdonation.com</p>
+             <p>support&#64;bookdonation.com</p>
+
             </div>
           </div>
 
           <div class="info-card">
-            <span>📱</span>
+            <span>📞</span>
             <div>
               <strong>Phone</strong>
               <p>9876543210</p>
@@ -39,244 +41,209 @@ import { FormsModule } from '@angular/forms';
             </div>
           </div>
 
-          <p class="footer-note">📚 Sharing books, spreading knowledge</p>
+          <!-- MAP -->
+          <div class="map-box">
+            <iframe
+              src="https://www.google.com/maps?q=Library%20City&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <p class="quote">📚 Sharing books. Changing lives.</p>
         </div>
 
-        <!-- RIGHT SIDE : FORM -->
-        <div class="contact-form">
-          <h2>✉️ Send Us a Message</h2>
-          <p class="form-sub">We usually reply within 24 hours ⏰</p>
+        <!-- RIGHT SIDE FORM -->
+        <div class="contact-form fade-right">
+          <h2>Send Message</h2>
+          <p class="tagline">We usually reply within 24 hours</p>
 
-          <form (ngSubmit)="submitForm()">
+          <form>
+            <input type="text" placeholder="Your Name" />
+            <input type="email" placeholder="Your Email" />
 
-            <!-- NAME -->
-            <div class="field">
-              <input
-                type="text"
-                [(ngModel)]="name"
-                name="name"
-                required
-                placeholder=" "
-              />
-              <label>👤 Your Name</label>
-            </div>
+            <select>
+              <option disabled selected>Select Subject</option>
+              <option>Book Donation</option>
+              <option>Account Support</option>
+              <option>Technical Issue</option>
+              <option>Feedback</option>
+              <option>Other</option>
+            </select>
 
-            <!-- EMAIL -->
-            <div class="field">
-              <input
-                type="email"
-                [(ngModel)]="email"
-                name="email"
-                required
-                placeholder=" "
-              />
-              <label>📧 Your Email</label>
-            </div>
+            <textarea rows="5" placeholder="Your Message"></textarea>
 
-            <!-- SUBJECT DROPDOWN -->
-            <div class="field">
-              <select
-                [(ngModel)]="subject"
-                name="subject"
-                required
-              >
-                <option value="" disabled selected hidden></option>
-                <option value="donation">📚 Book Donation</option>
-                <option value="support">🛠️ Technical Support</option>
-                <option value="account">👤 Account Issue</option>
-                <option value="feedback">💡 Feedback</option>
-                <option value="other">❓ Other</option>
-              </select>
-              <label>📝 Subject</label>
-            </div>
-
-            <!-- MESSAGE -->
-            <div class="field">
-              <textarea
-                rows="5"
-                [(ngModel)]="message"
-                name="message"
-                required
-                placeholder=" "
-              ></textarea>
-              <label>💬 Your Message</label>
-            </div>
-
-            <button type="submit">🚀 Send Message</button>
+            <button type="submit">Send Message</button>
           </form>
         </div>
 
       </div>
+
     </div>
   `,
   styles: [`
     /* PAGE */
-    .page {
+    .contact-page {
       min-height: 100vh;
-      background: linear-gradient(120deg, #eef2ff, #f9f9ff);
+      background: linear-gradient(180deg, #eef3f9, #f8fbff);
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 30px;
+      padding: 40px;
       font-family: 'Segoe UI', sans-serif;
     }
 
-    .contact-container {
-      background: #fff;
-      display: flex;
-      max-width: 950px;
+    .contact-wrapper {
       width: 100%;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+      max-width: 1100px;
+      display: flex;
+      gap: 40px;
     }
 
     /* LEFT */
     .contact-info {
-      width: 45%;
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
-      color: #fff;
-      padding: 35px;
+      flex: 1;
     }
 
-    .info-sub {
-      font-size: 14px;
-      opacity: 0.9;
-      margin-bottom: 25px;
+    .contact-info h2 {
+      font-size: 30px;
+      color: #1e3a8a;
+    }
+
+    .tagline {
+      color: #64748b;
+      margin-bottom: 30px;
     }
 
     .info-card {
       display: flex;
-      gap: 14px;
-      background: rgba(255,255,255,0.18);
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 14px;
       align-items: center;
-    }
-
-    .footer-note {
-      margin-top: 25px;
-      font-size: 13px;
-      opacity: 0.9;
-    }
-
-    /* RIGHT */
-    .contact-form {
-      width: 55%;
-      padding: 35px;
+      gap: 15px;
       background: #ffffff;
+      padding: 18px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .info-card span {
+      font-size: 24px;
+    }
+
+    .info-card strong {
+      color: #1e3a8a;
+    }
+
+    .info-card p {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: #475569;
+    }
+
+    /* MAP */
+    .map-box {
+      margin-top: 25px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+
+    .map-box iframe {
+      width: 100%;
+      height: 220px;
+      border: none;
+    }
+
+    .quote {
+      margin-top: 25px;
+      color: #475569;
+      font-size: 14px;
+    }
+
+    /* RIGHT FORM */
+    .contact-form {
+      flex: 1;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
     }
 
     .contact-form h2 {
-      margin-bottom: 4px;
-      font-size: 22px;
-      color: #4c1d95;
+      color: #1e3a8a;
+      margin-bottom: 5px;
     }
 
-    .form-sub {
-      font-size: 13px;
-      color: #64748b;
-      margin-bottom: 20px;
-    }
-
-    /* FLOATING LABEL */
-    .field {
-      position: relative;
-      margin-bottom: 22px;
-    }
-
-    .field input,
-    .field textarea,
-    .field select {
+    form input,
+    form select,
+    form textarea {
       width: 100%;
-      padding: 15px 14px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
       border-radius: 12px;
-      border: 1.8px solid #d1d5db;
+      border: 1.5px solid #cbd5f5;
+      background: #f8fafc;
       font-size: 14px;
-      background: #ffffff;
-      color: #111827;
-      transition: 0.3s ease;
-      appearance: none;
+      transition: all 0.3s ease;
     }
 
-    .field label {
-      position: absolute;
-      top: 50%;
-      left: 14px;
-      transform: translateY(-50%);
-      font-size: 14px;
-      color: #6b7280;
-      background: #ffffff;
-      padding: 0 6px;
-      pointer-events: none;
-      transition: 0.3s ease;
-    }
-
-    .field input:focus + label,
-    .field input:not(:placeholder-shown) + label,
-    .field textarea:focus + label,
-    .field textarea:not(:placeholder-shown) + label,
-    .field select:focus + label,
-    .field select:not([value=""]) + label {
-      top: -9px;
-      font-size: 12px;
-      color: #7c3aed;
-    }
-
-    .field input:focus,
-    .field textarea:focus,
-    .field select:focus {
-      border-color: #7c3aed;
-      box-shadow: 0 0 0 4px rgba(124,58,237,0.25);
+    form input:focus,
+    form select:focus,
+    form textarea:focus {
       outline: none;
+      border-color: #2563eb;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.2);
     }
 
-    /* BUTTON */
     button {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
-      color: #ffffff;
+      border-radius: 14px;
       border: none;
-      border-radius: 12px;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: #fff;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 25px rgba(99,102,241,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(37,99,235,0.5);
+    }
+
+    /* ANIMATIONS */
+    .fade-left {
+      animation: slideLeft 0.8s ease forwards;
+    }
+
+    .fade-right {
+      animation: slideRight 0.8s ease forwards;
+    }
+
+    @keyframes slideLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     /* MOBILE */
     @media (max-width: 768px) {
-      .contact-container {
+      .contact-wrapper {
         flex-direction: column;
-      }
-
-      .contact-info,
-      .contact-form {
-        width: 100%;
       }
     }
   `]
 })
-export class ContactComponent {
-
-  name = '';
-  email = '';
-  subject = '';
-  message = '';
-
-  submitForm() {
-    alert('🎉 Message sent successfully!');
-    console.log(this.name, this.email, this.subject, this.message);
-
-    this.name = '';
-    this.email = '';
-    this.subject = '';
-    this.message = '';
-  }
-}
+export class ContactComponent {}

@@ -6,179 +6,195 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="page">
+    <div class="about-page">
 
+      <div class="about-wrapper">
 
-      <!-- Content Card -->
-      <div class="content-card">
+        <!-- LEFT CONTENT -->
+        <div class="about-info fade-left">
+          <h2>About Us</h2>
+          <p class="tagline">Who we are & what we believe</p>
 
-        <h2>About Our Book Donation Platform 📚</h2>
-
-        <p>
-          Welcome to our Book Donation Platform! Our mission is to promote literacy
-          and education by making books accessible to everyone. Whether you want
-          to donate books or request books, we make the process simple and smooth.
-        </p>
-
-        <p>
-          We believe that sharing knowledge can change lives. Our platform connects
-          donors and readers to help build a growing community and inspire a love
-          for reading.
-        </p>
-
-        <!-- Mission & Vision -->
-        <div class="info-boxes">
-          <div class="box blue">
-            <h3>📘 Our Mission</h3>
-            <p>
-              To build a supportive network that encourages sharing knowledge
-              and provides access to educational resources.
-            </p>
+          <div class="info-card">
+            <span>📚</span>
+            <div>
+              <strong>Our Purpose</strong>
+              <p>
+                We aim to make education accessible by connecting book donors
+                with learners who need them the most.
+              </p>
+            </div>
           </div>
 
-          <div class="box sky">
-            <h3>🌍 Our Vision</h3>
-            <p>
-              To create a world where everyone has access to books they need
-              to learn, grow, and thrive.
-            </p>
+          <div class="info-card">
+            <span>🎯</span>
+            <div>
+              <strong>Our Mission</strong>
+              <p>
+                To promote reading culture and ensure no book goes to waste
+                through meaningful donations.
+              </p>
+            </div>
           </div>
+
+          <div class="info-card">
+            <span>🌱</span>
+            <div>
+              <strong>Our Vision</strong>
+              <p>
+                A future where knowledge is freely shared and learning
+                opportunities are equal for all.
+              </p>
+            </div>
+          </div>
+
+          <p class="quote">📖 Empowering minds. One book at a time.</p>
         </div>
 
-        <!-- Green Section -->
-        <div class="action-box">
-          <h3>Ready to Make a Difference?</h3>
-          <p>
-            Your contribution can change someone's life. Donate a book or
-            request one today!
-          </p>
+        <!-- RIGHT IMAGE / HIGHLIGHT -->
+        <div class="about-visual fade-right">
+          <h2>Why Book Donation?</h2>
+          <p class="tagline">Because knowledge grows when shared</p>
 
-          <button class="btn donate">Donate a Book</button>
-          <button class="btn request">Request a Book</button>
+          <img
+            src="https://images.unsplash.com/photo-1512820790803-83ca734da794"
+            alt="Books"
+          />
+
+          <p class="visual-text">
+            Millions of books remain unused while many learners lack access
+            to basic study materials. Our platform bridges this gap by
+            encouraging sharing and community support.
+          </p>
         </div>
 
       </div>
 
-     
     </div>
   `,
   styles: [`
-    .page {
-      background: #f4f6fa;
+    /* PAGE */
+    .about-page {
       min-height: 100vh;
-      font-family: Arial, sans-serif;
-    }
-
-    /* Navbar */
-    .navbar {
-      background: linear-gradient(to right, #4b63a8, #2d3f8f);
-      color: white;
-      padding: 10px 20px;
+      background: linear-gradient(180deg, #eef3f9, #f8fbff);
       display: flex;
       justify-content: center;
-      gap: 25px;
-      font-size: 14px;
+      align-items: center;
+      padding: 40px;
+      font-family: 'Segoe UI', sans-serif;
     }
 
-    .navbar span {
-      cursor: pointer;
+    .about-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      gap: 40px;
     }
 
-    .navbar .active {
-      font-weight: bold;
-      text-decoration: underline;
+    /* LEFT */
+    .about-info {
+      flex: 1;
     }
 
-    /* Content */
-    .content-card {
-      background: white;
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 25px;
-      border-radius: 6px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-      text-align: center;
+    .about-info h2 {
+      font-size: 30px;
+      color: #1e3a8a;
     }
 
-    .content-card h2 {
-      color: #2d3f8f;
-      margin-bottom: 15px;
+    .tagline {
+      color: #64748b;
+      margin-bottom: 30px;
     }
 
-    .content-card p {
-      color: #444;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    /* Info boxes */
-    .info-boxes {
+    .info-card {
       display: flex;
       gap: 15px;
-      margin-top: 20px;
+      background: #ffffff;
+      padding: 18px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
     }
 
-    .box {
+    .info-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .info-card span {
+      font-size: 24px;
+    }
+
+    .info-card strong {
+      color: #1e3a8a;
+    }
+
+    .info-card p {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .quote {
+      margin-top: 30px;
+      color: #475569;
+      font-size: 14px;
+    }
+
+    /* RIGHT */
+    .about-visual {
       flex: 1;
-      padding: 15px;
-      border-radius: 5px;
-      color: white;
-    }
-
-    .box h3 {
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
-
-    .blue {
-      background: #2f80ed;
-    }
-
-    .sky {
-      background: #56ccf2;
-    }
-
-    /* Action section */
-    .action-box {
-      background: #27ae60;
-      color: white;
-      padding: 20px;
-      border-radius: 6px;
-      margin-top: 25px;
-    }
-
-    .action-box h3 {
-      margin-bottom: 8px;
-    }
-
-    .btn {
-      margin: 8px 5px 0;
-      padding: 7px 15px;
-      border: none;
-      border-radius: 4px;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .donate {
-      background: white;
-      color: #27ae60;
-      font-weight: bold;
-    }
-
-    .request {
-      background: #e0f7ea;
-      color: #27ae60;
-      font-weight: bold;
-    }
-
-    /* Footer */
-    .footer {
-      background: #d1d1d1;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
       text-align: center;
-      padding: 8px;
-      font-size: 12px;
-      margin-top: 40px;
+    }
+
+    .about-visual h2 {
+      color: #1e3a8a;
+      margin-bottom: 5px;
+    }
+
+    .about-visual img {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 16px;
+      margin: 25px 0;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .visual-text {
+      font-size: 14px;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    /* ANIMATIONS */
+    .fade-left {
+      animation: slideLeft 0.8s ease forwards;
+    }
+
+    .fade-right {
+      animation: slideRight 0.8s ease forwards;
+    }
+
+    @keyframes slideLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .about-wrapper {
+        flex-direction: column;
+      }
     }
   `]
 })

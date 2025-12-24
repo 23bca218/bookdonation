@@ -1,8 +1,9 @@
-<div class="books-container">
+<div class="page">
 
-  <!-- SEARCH + FILTER -->
-  <div class="search-filter">
-    <input type="text" placeholder="Search books..." [(ngModel)]="searchText" />
+  <!-- 🔍 SEARCH + FILTER -->
+  <div class="top-bar">
+    
+
     <select [(ngModel)]="selectedCondition">
       <option value="All">All</option>
       <option value="New">New</option>
@@ -11,41 +12,108 @@
     </select>
   </div>
 
-  <!-- BOOK GRID -->
-  <div class="books-grid">
-    <div class="book-card" *ngFor="let book of filteredBooks; let i = index">
-
-      <!-- Book of the Month Badge -->
-      <div class="book-of-month-badge" *ngIf="i === bookOfTheMonthIndex">
-        🌟 Book of the Month 🌟
-      </div>
-
-      <div class="condition-badge">{{ book.condition }}</div>
-      <img [src]="book.image" [alt]="book.title" class="book-image" (click)="openBookDetails(i)" />
-      <h3>{{ book.title }}</h3>
+  <!-- 📚 BOOK GRID -->
+  <div class="book-grid">
+    <div
+      class="book-card"
+      *ngFor="let book of filteredBooks; let i = index"
+      (click)="openBookDetails(i)"
+    >
+      <img [src]="book.image" />
+      <h4>{{ book.title }}</h4>
       <p>{{ book.author }}</p>
-      <button class="add-cart-btn" (click)="addToCart(book)">Add to Cart 🛒</button>
+      <span class="cond">{{ book.condition }}</span>
+
+      <span
+        class="badge"
+        *ngIf="i === bookOfTheMonthIndex"
+      >
+        ⭐ Book of the Month
+      </span>
     </div>
   </div>
 
-  <!-- BOOK DETAILS MODAL -->
-  <div class="modal" *ngIf="showModal">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h2>{{ selectedBook?.title }}</h2>
-      <p><strong>Author:</strong> {{ selectedBook?.author }}</p>
-      <p><strong>Condition:</strong> {{ selectedBook?.condition }}</p>
-      <p>{{ selectedBook?.description }}</p>
+  <!-- ================= BOOK DETAIL VIEW ================= -->
+  <div class="overlay" *ngIf="showModal">
+    <div class="detail-container">
 
-      <h4>Testimonials:</h4>
-      <ul>
-        <li *ngFor="let t of selectedBook?.testimonials">{{ t }}</li>
-      </ul>
-
-      <div class="modal-buttons">
-        <button (click)="prevBook()" [disabled]="selectedBookIndex === 0">Previous</button>
-        <button (click)="nextBook()" [disabled]="selectedBookIndex === filteredBooks.length - 1">Next</button>
+      <!-- LEFT IMAGE -->
+      <div class="detail-left">
+        <img [src]="selectedBook?.image" />
+        <div class="icons">
+          🔗 ❤️
+        </div>
       </div>
+
+      <!-- RIGHT CONTENT -->
+      <div class="detail-right">
+
+        <h2>{{ selectedBook?.title }}</h2>
+        <p class="author">
+          By <b>{{ selectedBook?.author }}</b>
+        </p>
+
+        <div class="price">
+          ₹185 <span class="old">₹2295</span>
+          <span class="off">91% OFF</span>
+        </div>
+
+        <div class="used">
+          {{ selectedBook?.condition }} Book · Only 1 left!
+        </div>
+
+        <p class="ship">
+          Ships within <b>2 Business Days</b>
+        </p>
+
+        <!-- CONDITION -->
+        <div class="condition-box">
+          Good & Readable 📘 <br />
+          <strong>₹185</strong>
+        </div>
+
+        <!-- DELIVERY -->
+        <div class="delivery">
+          Delivery <span class="free">Free</span>
+        </div>
+
+        <div class="total">
+          Total Amount : <b>₹185</b>
+        </div>
+
+        <div class="secure">
+          ✅ Safe & Secure Payment · 100% Authentic Books
+        </div>
+
+        <!-- PINCODE -->
+        <div class="pincode">
+          📍
+          <input type="text" placeholder="Enter Delivery Pincode" />
+          <button>Check</button>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="actions">
+          <button class="buy">Buy Now</button>
+          <button class="cart" (click)="addToCart(selectedBook!)">
+            🛒 Add To Cart
+          </button>
+        </div>
+
+        <!-- REVIEWS -->
+        <div class="reviews">
+          <h4>Reader Reviews</h4>
+          <ul>
+            <li *ngFor="let t of selectedBook?.testimonials">
+              ⭐ {{ t }}
+            </li>
+          </ul>
+        </div>
+
+        <button class="close" (click)="closeModal()">✖</button>
+      </div>
+
     </div>
   </div>
+
 </div>

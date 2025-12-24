@@ -8,6 +8,15 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   template: `
     <div class="page">
+
+      <!-- 🎆 CONFETTI -->
+      <div class="confetti" *ngIf="showConfetti">
+        <span *ngFor="let c of confetti; let i = index"
+              [style.left.%]="i * 8"
+              [style.animationDelay.ms]="i * 120">
+        </span>
+      </div>
+
       <div class="card">
 
         <h2>📚 Donate a Book</h2>
@@ -81,14 +90,51 @@ import { FormsModule } from '@angular/forms';
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
+      overflow: hidden;
     }
 
+    /* 🎆 CONFETTI */
+    .confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .confetti span {
+      position: absolute;
+      top: -20px;
+      width: 10px;
+      height: 16px;
+      background: red;
+      animation: confettiFall 3s linear forwards;
+    }
+
+    .confetti span:nth-child(odd) { background: #ff4081; }
+    .confetti span:nth-child(even) { background: #7c4dff; }
+    .confetti span:nth-child(3n) { background: #4caf50; }
+    .confetti span:nth-child(4n) { background: #ffc107; }
+
+    @keyframes confettiFall {
+      from {
+        transform: translateY(-30px) rotate(0deg);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* CARD */
     .card {
       background: #fff;
       padding: 30px;
       border-radius: 18px;
       width: 400px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      z-index: 2;
     }
 
     .subtitle {
@@ -135,7 +181,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class DonateBookComponent {
 
-  // ✅ MATCHES MongoDB SCHEMA
+  showConfetti = false;
+  confetti = new Array(12);
+
   book = {
     title: '',
     author: '',
@@ -154,7 +202,13 @@ export class DonateBookComponent {
     })
     .then(res => res.json())
     .then(() => {
+
+      // 🎆 SHOW CONFETTI
+      this.showConfetti = true;
+      setTimeout(() => this.showConfetti = false, 3000);
+
       alert('✅ Book donated successfully!');
+
       this.book = {
         title: '',
         author: '',

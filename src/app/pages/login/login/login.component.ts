@@ -9,99 +9,183 @@ import { Router } from '@angular/router';
   imports: [CommonModule, FormsModule],
   template: `
     <div class="page">
-      <div class="login-card">
 
-        <h2 class="title">
-          📘 Book Donation Login
-        </h2>
+      <div class="login-wrapper">
 
-        <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <!-- LEFT PANEL -->
+        <div class="left-panel">
+          <div class="logo">
+            📚 <span>BookDonate</span><b>.com</b>
+          </div>
 
-          <input
-            type="text"
-            placeholder="Username or Email"
-            name="email"
-            [(ngModel)]="email"
-            required
-          />
+          <h2>Welcome To BookDonate</h2>
+          <p>
+            Share knowledge. Spread education.<br />
+            Login to continue your journey.
+          </p>
 
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            [(ngModel)]="password"
-            required
-          />
+          <div class="illustration">
+            🛵📦📘
+          </div>
+        </div>
 
-          <button class="login-btn" type="submit">
-            Login
-          </button>
+        <!-- RIGHT PANEL -->
+        <div class="right-panel">
 
-          <button type="button" class="google-btn">
-            Continue with Google
-          </button>
+          <button class="close-btn" (click)="router.navigate(['/'])">✖</button>
 
-        </form>
+          <h3>Enter your login details</h3>
+
+          <form (ngSubmit)="onSubmit()" #f="ngForm">
+
+            <input
+              type="email"
+              placeholder="Enter your email"
+              name="email"
+              [(ngModel)]="email"
+              required
+            />
+
+            <input
+              type="password"
+              placeholder="Enter your password"
+              name="password"
+              [(ngModel)]="password"
+              required
+            />
+
+            <button class="login-btn" type="submit">
+              Proceed
+            </button>
+
+           
+
+          </form>
+
+        </div>
+
       </div>
+
     </div>
   `,
   styles: [`
     .page {
       height: 100vh;
-      background: #f4f9ff;
+      background: #f2f6fb;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .login-card {
-      width: 360px;
-      background: #f0f8ff;
+    .login-wrapper {
+      width: 820px;
+      height: 420px;
+      background: white;
+      display: flex;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    /* LEFT */
+    .left-panel {
+      width: 40%;
+      background: linear-gradient(to bottom, #1c4fa1, #4f83d1);
+      color: white;
       padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       text-align: center;
     }
 
-    .title {
-      margin-bottom: 20px;
+    .logo {
+      background: white;
+      color: #1c4fa1;
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
       font-weight: bold;
-      color: #1e3a5f;
+      margin-bottom: 25px;
+    }
+
+    .logo b {
+      color: #ff5722;
+    }
+
+    .left-panel h2 {
+      margin-bottom: 10px;
+    }
+
+    .left-panel p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .illustration {
+      font-size: 60px;
+      margin-top: 30px;
+    }
+
+    /* RIGHT */
+    .right-panel {
+      width: 60%;
+      padding: 40px;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      border: none;
+      background: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .right-panel h3 {
+      margin-bottom: 20px;
+      color: #333;
     }
 
     input {
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
-      border-radius: 10px;
-      border: 1.8px solid #8ec5ff;
+      border: none;
+      border-bottom: 1.8px solid #ccc;
       outline: none;
-      background: white;
+      font-size: 14px;
     }
 
     .login-btn {
       width: 100%;
       padding: 12px;
-      border-radius: 25px;
-      border: none;
-      background: #3b9ae1;
+      background: #2f66d0;
       color: white;
+      border: none;
+      border-radius: 4px;
       font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 12px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .forgot {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 12px;
+      color: #2f66d0;
       cursor: pointer;
     }
 
-    .google-btn {
-      width: 100%;
-      padding: 12px;
-      border-radius: 25px;
-      border: none;
-      background: #e74c3c;
-      color: white;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .login-wrapper {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .left-panel, .right-panel {
+        width: 100%;
+      }
     }
   `]
 })
@@ -110,46 +194,35 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
- onSubmit() {
-  fetch('http://localhost:5000/api/users/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email: this.email,
-      password: this.password
+  onSubmit() {
+    fetch('http://localhost:5000/api/users/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: this.email,
+        password: this.password
+      })
     })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (!data.success) {
-      alert(data.message);
-      return;
-    }
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) {
+        alert(data.message);
+        return;
+      }
 
-    // ✅ SAVE ROLE (optional but useful)
-    localStorage.setItem('role', data.user.role);
+      localStorage.setItem('role', data.user.role);
+      alert('Login successful');
 
-    alert('Login successful');
-
-    // ✅ ROLE BASED REDIRECT
-    if (data.user.role === 'admin') {
-      this.router.navigate(['/user-list']);
-    } 
-    else if (data.user.role === 'donor') {
-      this.router.navigate(['/donate-book']);
-    } 
-    else {
-      this.router.navigate(['/view-books']);
-    }
-  })
-  .catch(() => {
-    alert('Server error');
-  });
-}
-          
-
-
-
+      if (data.user.role === 'admin') {
+        this.router.navigate(['/user-list']);
+      } else if (data.user.role === 'donor') {
+        this.router.navigate(['/donate-book']);
+      } else {
+        this.router.navigate(['/view-books']);
+      }
+    })
+    .catch(() => alert('Server error'));
+  }
 }
